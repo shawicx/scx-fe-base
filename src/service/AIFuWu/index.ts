@@ -1,4 +1,5 @@
-import { RequestConfig, request } from '@/service/request';
+import type { RequestConfig } from '@/service/request';
+import { request } from '@/service/request';
 import type { AiMessageDto } from '@/service/types';
 
 /**

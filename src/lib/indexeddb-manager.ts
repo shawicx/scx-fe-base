@@ -46,7 +46,7 @@ export class IndexedDBManager {
       const request = indexedDB.open(DB_CONFIG.NAME, DB_CONFIG.VERSION);
 
       request.onerror = () => {
-        reject(new Error(`Failed to open IndexedDB: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`打开 IndexedDB 失败：${request.error?.message || '未知错误'}`));
       };
 
       request.onsuccess = () => {
@@ -95,7 +95,7 @@ export class IndexedDBManager {
 
       request.onsuccess = () => resolve();
       request.onerror = () =>
-        reject(new Error(`Failed to save data: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`保存数据失败：${request.error?.message || '未知错误'}`));
     });
   }
 
@@ -114,7 +114,7 @@ export class IndexedDBManager {
       };
 
       request.onerror = () =>
-        reject(new Error(`Failed to get data: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`获取数据失败：${request.error?.message || '未知错误'}`));
     });
   }
 
@@ -129,7 +129,7 @@ export class IndexedDBManager {
 
       request.onsuccess = () => resolve();
       request.onerror = () =>
-        reject(new Error(`Failed to remove data: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`删除数据失败：${request.error?.message || '未知错误'}`));
     });
   }
 
@@ -144,7 +144,7 @@ export class IndexedDBManager {
 
       request.onsuccess = () => resolve();
       request.onerror = () =>
-        reject(new Error(`Failed to clear store: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`清空存储失败：${request.error?.message || '未知错误'}`));
     });
   }
 
@@ -159,7 +159,7 @@ export class IndexedDBManager {
 
       request.onsuccess = () => resolve(request.result as string[]);
       request.onerror = () =>
-        reject(new Error(`Failed to get keys: ${request.error?.message || 'Unknown error'}`));
+        reject(new Error(`获取键名失败：${request.error?.message || '未知错误'}`));
     });
   }
 }

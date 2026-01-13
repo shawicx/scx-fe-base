@@ -1,20 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 
 export default function Home(): React.ReactElement {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
-      <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to SCX FE Base</h1>
-      <p className="text-gray-600 mb-8">
-        A modern React + TypeScript + React Router + UnoCSS starter template
-      </p>
-      <div className="flex gap-4">
-        <Link
-          to="/about"
-          className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          About
-        </Link>
-      </div>
-    </div>
+    <Flex minH="100vh" direction="column" align="center" justify="center" bg="gray.50" p={4}>
+      <Heading as="h1" size="2xl" color="gray.900" mb={4}>
+        欢迎来到 SCX FE Base
+      </Heading>
+      <Text color="gray.600" mb={8} textAlign="center">
+        一个现代化的 React + TypeScript + React Router + Chakra UI 起步模板
+      </Text>
+      <RouterLink
+        to="/about"
+        className="inline-flex items-center justify-center px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        关于
+      </RouterLink>
+    </Flex>
   );
 }

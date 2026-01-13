@@ -1,4 +1,5 @@
-import { RequestConfig, request } from '@/service/request';
+import type { RequestConfig } from '@/service/request';
+import { request } from '@/service/request';
 import type { UserRoleResponseDto, Role } from '@/service/types';
 
 /**
@@ -41,6 +42,10 @@ export interface PostUsersRegisterResponseType {
   loginCount: number;
   /** @description 账户是否激活 */
   isActive: boolean;
+  /** @description 访问令牌 */
+  accessToken: string;
+  /** @description 刷新令牌 */
+  refreshToken: string;
   /** @description 创建时间 */
   createdAt: string;
   /** @description 更新时间 */

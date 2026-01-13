@@ -1,7 +1,7 @@
-import { RequestMethod } from '@scxfe/api-tool';
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { IndexedDBManager } from '@/lib/indexeddb-manager';
+import { toast } from '@/components/toast';
 
 type ValueOf<T> = T[keyof T];
 
@@ -10,12 +10,9 @@ export interface RequestConfig extends AxiosRequestConfig {
   method: string;
 }
 
-interface BaseRes<D> {
-  data: D;
-  success: boolean;
-}
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'PATCH';
 
-type Method = ValueOf<typeof RequestMethod>;
+type Method = ValueOf<RequestMethod>;
 
 // 用于转发请求的代理地址
 const BASE_LINE_PROXY_PATH = 'http://127.0.0.1:3000';
@@ -79,14 +76,7 @@ const getText = (type: 'error' | 'success' | 'warning' | 'info') => {
 // 添加消息提示函数
 function showMessage(message: string, type: 'error' | 'success' | 'warning' | 'info' = 'error') {
   const text = getText(type);
-  // const variant = type === 'error' ? 'destructive' : 'default'
-  console.log(`${text}: ${message}`);
-  // 使用项目中的 toast 组件显示消息
-  // toast({
-  //   variant,
-  //   title: text,
-  //   description: message,
-  // })
+  toast[type](text, message);
 }
 
 function hashObject(obj: unknown): string {
@@ -183,7 +173,7 @@ export async function request<D>(config: AxiosRequestConfig): Promise<D> {
     const indexedDB = IndexedDBManager.getInstance();
     accessToken = await indexedDB.getItem('accessToken');
   } catch (error) {
-    console.error('Failed to get access token from IndexedDB:', error);
+    console.error('从 IndexedDB 获取访问令牌失败：', error);
   }
 
   // const secret = AESToken(BASE_LINE_KEY_24);

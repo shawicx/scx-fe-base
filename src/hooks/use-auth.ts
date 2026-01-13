@@ -57,11 +57,11 @@ export function useAuth() {
         // 同时设置 cookie，供 middleware 使用
         setAuthCookie(user.accessToken);
       } catch (error) {
-        console.error('Failed to save user data to IndexedDB:', error);
+        console.error('保存用户数据到 IndexedDB 失败：', error);
         throw Error('登录失败');
       }
       return user;
-    } catch (error) {
+    } catch {
       throw Error('密码登录失败');
     }
   };
@@ -79,10 +79,10 @@ export function useAuth() {
         // 同时设置 cookie，供 middleware 使用
         setAuthCookie(user.accessToken);
       } catch (error) {
-        console.error('Failed to save user data to IndexedDB:', error);
+        console.error('保存用户数据到 IndexedDB 失败：', error);
       }
       return user;
-    } catch (error) {
+    } catch {
       throw Error('验证码登录失败');
     }
   };
@@ -103,11 +103,11 @@ export function useAuth() {
         // 同时设置 cookie，供 middleware 使用
         setAuthCookie(user.accessToken);
       } catch (error) {
-        console.error('Failed to save user data to IndexedDB:', error);
+        console.error('保存用户数据到 IndexedDB 失败：', error);
       }
       return user;
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error('注册失败：', error);
       throw Error('注册失败');
     }
   };
@@ -118,7 +118,7 @@ export function useAuth() {
       // 调用发送验证码接口
       return await postUsersSendEmailCodeApi({ email });
     } catch (error) {
-      console.error('Failed to send verification code:', error);
+      console.error('发送验证码失败：', error);
       throw Error('发送验证码失败');
     }
   };
@@ -129,13 +129,13 @@ export function useAuth() {
     try {
       userData = (await indexedDB.getItem('user')) as PostUsersLoginPasswordResponseType;
     } catch (error) {
-      console.error('Failed to get user data from IndexedDB:', error);
+      console.error('从 IndexedDB 获取用户数据失败：', error);
     }
 
     // 尝试调用后端注销接口，但不阻塞本地清理
     if (userData?.id) {
       postUsersLogoutApi({ userId: userData.id }).catch((error) => {
-        console.warn('Logout API call failed, but continuing with local cleanup:', error);
+        console.warn('登出 API 调用失败，但继续执行本地清理：', error);
       });
     }
 
@@ -146,7 +146,7 @@ export function useAuth() {
       // 同时删除 cookie
       removeAuthCookie();
     } catch (error) {
-      console.error('Failed to remove user data from IndexedDB:', error);
+      console.error('从 IndexedDB 删除用户数据失败：', error);
     }
   };
 
@@ -155,7 +155,7 @@ export function useAuth() {
     try {
       return await indexedDB.getItem('accessToken');
     } catch (error) {
-      console.error('Failed to get access token from IndexedDB:', error);
+      console.error('从 IndexedDB 获取访问令牌失败：', error);
       return null;
     }
   };
@@ -166,7 +166,7 @@ export function useAuth() {
       const token = await getAccessToken();
       return !!token;
     } catch (error) {
-      console.error('Failed to check authentication status:', error);
+      console.error('检查认证状态失败：', error);
       return false;
     }
   };

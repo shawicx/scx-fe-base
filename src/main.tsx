@@ -1,15 +1,18 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import 'uno.css';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { Toaster } from '@/components/ui/toaster';
 import App from './App.tsx';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error('Failed to find the root element');
+  throw new Error('未找到根元素');
 }
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <ChakraProvider value={defaultSystem}>
+      <App />
+      <Toaster />
+    </ChakraProvider>
   </StrictMode>
 );

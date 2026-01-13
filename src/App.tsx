@@ -4,7 +4,6 @@ import About from './routes/about';
 import Login from './routes/login';
 import Register from './routes/register';
 import ResetPassword from './routes/reset-password';
-import './App.css';
 
 function App(): React.ReactElement {
   return (
