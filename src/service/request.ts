@@ -1,7 +1,7 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { IndexedDBManager } from '@/lib/indexeddb-manager';
-import { toast } from '@/components/toast';
+import { toaster } from '@/components/ui/toaster';
 
 type ValueOf<T> = T[keyof T];
 
@@ -76,7 +76,11 @@ const getText = (type: 'error' | 'success' | 'warning' | 'info') => {
 // 添加消息提示函数
 function showMessage(message: string, type: 'error' | 'success' | 'warning' | 'info' = 'error') {
   const text = getText(type);
-  toast[type](text, message);
+  toaster.create({
+    title: text,
+    description: message,
+    type,
+  });
 }
 
 function hashObject(obj: unknown): string {
@@ -188,7 +192,6 @@ export async function request<D>(config: AxiosRequestConfig): Promise<D> {
       headers: {
         ...headers,
         ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-        token: 'secret',
       },
       ...axiosRequestConfig,
       baseURL: BASE_LINE_PROXY_PATH,
