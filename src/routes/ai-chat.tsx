@@ -4,7 +4,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/react';
-import { toaster } from '@/components/ui/toaster';
 import { postAiCompletionApi } from '@/service';
 import type { AiMessageDto } from '@/service/types';
 

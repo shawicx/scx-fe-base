@@ -1,7 +1,14 @@
-import { defineConfig, presetUno, presetAttributify, presetIcons } from 'unocss';
+import {
+  defineConfig,
+  presetWind,
+  presetAttributify,
+  presetIcons,
+  transformerDirectives,
+} from 'unocss';
 
 export default defineConfig({
-  presets: [presetUno(), presetAttributify(), presetIcons()],
+  presets: [presetWind(), presetAttributify(), presetIcons()],
+  transformers: [transformerDirectives()],
   rules: [
     [
       'animate-slide-in-right',
@@ -10,10 +17,12 @@ export default defineConfig({
       },
     ],
   ],
-  keyframes: {
-    slideInRight: {
-      '0%': { transform: 'translateX(100%)', opacity: '0' },
-      '100%': { transform: 'translateX(0)', opacity: '1' },
+  theme: {
+    keyframes: {
+      slideInRight: {
+        '0%': { transform: 'translateX(100%)', opacity: '0' },
+        '100%': { transform: 'translateX(0)', opacity: '1' },
+      },
     },
   },
 });
